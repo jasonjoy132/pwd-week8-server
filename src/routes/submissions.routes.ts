@@ -1,0 +1,13 @@
+import { Router } from "express";
+import { isAuthenticated, requireAdmin } from "../middleware/auth.middleware";
+import * as controller from "../controllers/submissions.controller";
+const router = Router();
+router.use(isAuthenticated);
+router.post("/", controller.create);
+router.use(requireAdmin);
+router.get("/", controller.list);
+router.get("/:id", controller.get);
+router.post("/:id/approve", controller.approve);
+router.put("/:id", controller.reject);
+router.delete("/:id", controller.remove);
+export default router;
